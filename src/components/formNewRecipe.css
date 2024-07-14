@@ -1,7 +1,3 @@
-/* FormNewRecipe.css */
-
-/* General form styling */
-
 form {
   position: absolute;
   width: 90%;
@@ -9,13 +5,17 @@ form {
   max-height: 90vh;
   padding: 5px;
   margin: auto;
-  top: 10%; /* Position the top edge of the form at the middle of the parent */
-  left: 50%; /* Position the left edge of the form at the middle of the parent */
+  top: 10%;
+  left: 50%;
   transform: translate(-50%, 3%);
   background-color: #f3f3f3;
+  background-image: url("../assets/herbs.jpg");
+  background-size: cover;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px rgb(152, 152, 152) solid;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .closeModal {
   cursor: pointer;
   margin-left: 95%;
@@ -24,6 +24,7 @@ form label {
   margin: 5px 10px 5px 10px;
   display: block;
   font-size: 16px;
+  font-weight: 700;
   color: #333;
 }
 
@@ -34,16 +35,18 @@ form textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  opacity: 0.9;
 }
 form input[type="password"] {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  opacity: 0.9;
 }
 form textarea {
   height: 100px;
-  resize: vertical;
+  resize: none;
 }
 form .ingredientAndAdd {
   display: flex;
@@ -51,7 +54,7 @@ form .ingredientAndAdd {
   width: 60%;
 }
 form .ingredientAndAdd svg {
-  background-color: green;
+  background-color: #4caf50;
   color: white;
   padding: 1px 2px;
   border-radius: 50px;
@@ -64,23 +67,29 @@ form .ingredientList {
 form .ingredientAndRemove {
   display: flex;
   align-items: center;
-  margin-left: 5px;
+  margin: 2px 5px;
+  border-radius: 4px;
+  padding: 2px;
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 form .ingredientAndRemove .remove {
   margin-left: 5px;
   margin-right: 5px;
   font-size: 14px;
-  border: 1px solid red; /* Light grey border */
-  padding: 1px 2px; /* Some padding around the icon */
-  border-radius: 54px; /* Optional: rounds the corners for a softer look */
+  border: 1px solid red;
+  padding: 1px 2px;
+  border-radius: 54px;
   cursor: pointer;
 }
 form input[type="submit"] {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  width: 200px;
   background-color: #4caf50;
   color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+  padding: 10px 15px;
+  margin: 8px auto;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -89,20 +98,21 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background-color: #45a049;
 }
-
+form .containerLabelInput {
+  display: flex;
+}
+form .containerLabelInput label {
+  width: 100px;
+}
+form .containerLabelInput input {
+  width: 120px;
+}
 form .passwordMessage {
   color: red;
 }
 
 /* Media Query */
 @media (max-width: 768px) {
-  form {
-    width: 100%;
-    max-width: none;
-    top: 0;
-    left: 0;
-    transform: none;
-  }
   form .ingredientAndAdd {
     width: 85%;
   }

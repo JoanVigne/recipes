@@ -1,0 +1,23 @@
+.containerAllRecipes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.titleAndPostedBy {
+  display: flex;
+  justify-content: space-between;
+}
+.containerRecipe {
+  background-color: rgba(243, 223, 223, 0.5);
+  margin: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  min-width: 40%;
+}
+.containerRecipe ul {
+}
+@media (max-width: 768px) {
+  .containerAllRecipes {
+    display: flex;
+    flex-direction: column;
+  }
+}

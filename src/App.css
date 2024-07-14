@@ -16,6 +16,9 @@ ul {
 
 body {
   line-height: 1.5;
+  /*   height: 100vh; */
+  background-image: url("./assets/lemon.jpg");
+  background-size: cover;
 }
 
 ol,

@@ -10,6 +10,7 @@ const FormNewRecipe = ({ closeModal }) => {
     title: "",
     ingredients: [],
     instructions: "",
+    postedBy: "",
   });
 
   const [password, setPassword] = useState("");
@@ -26,6 +27,9 @@ const FormNewRecipe = ({ closeModal }) => {
   };
 
   const addIngredientField = () => {
+    if (!recipe.currentIngredient || recipe.currentIngredient.trim() === "") {
+      return;
+    }
     if (recipe.currentIngredient.trim() !== "") {
       setRecipe({
         ...recipe,
@@ -56,7 +60,7 @@ const FormNewRecipe = ({ closeModal }) => {
       });
       console.log("Recipe added successfully");
       // Reset the form or provide further user feedback
-      setRecipe({ title: "", ingredients: "", instructions: "" });
+      setRecipe({ title: "", ingredients: "", instructions: "", postedBy: "" });
       closeModal(); // Close the modal on success
     } catch (error) {
       console.error("Error adding recipe: ", error);
@@ -100,9 +104,6 @@ const FormNewRecipe = ({ closeModal }) => {
               icon={faPlus}
               onClick={addIngredientField}
             />
-            {/* <button type="button" onClick={addIngredientField}>
-              Add Ingredient
-            </button> */}
           </div>
           <p className="ingredientList">
             {recipe.ingredients.map((ingredient, index) => (
@@ -113,7 +114,6 @@ const FormNewRecipe = ({ closeModal }) => {
                   onClick={() => removeIngredientField(index)}
                   className="remove"
                 />
-                {index === recipe.ingredients.length - 1 ? "." : ","}
               </span>
             ))}
           </p>
@@ -124,8 +124,19 @@ const FormNewRecipe = ({ closeModal }) => {
             value={recipe.instructions}
             onChange={handleChange}
           />
-          <label htmlFor="password">Password:</label>
-          <div className="passwordAndMessage">
+          <div className="containerLabelInput">
+            <label htmlFor="postedBy">Posté par:</label>
+            <input
+              type="text"
+              id="postedBy"
+              name="postedBy"
+              value={recipe.postedBy}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="containerLabelInput">
+            <label htmlFor="password">Password:</label>
+
             <input
               type="password"
               id="password"

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import "./containerRecipes.css";
 
 export default function ContainerRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -37,11 +38,15 @@ export default function ContainerRecipes() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
+    <div className="containerAllRecipes">
       {recipes.map((recipe) => (
-        <div key={recipe.id}>
-          <h3>{recipe.title}</h3>
+        <div className="containerRecipe" key={recipe.id}>
+          <h3 className="titleAndPostedBy">
+            {recipe.title}
+            <span>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</span>
+          </h3>
           <ul>
+            <h3>Ingrédients</h3>
             {recipe.ingredients.map((ingredient, index) => (
               <li key={index}>{ingredient}</li>
             ))}
