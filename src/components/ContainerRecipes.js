@@ -1,25 +1,53 @@
+import { useEffect, useState } from "react";
 import { db } from "../firebaseConfig";
-
-import { useCollection } from "react-firebase-hooks/firestore";
-import { collection } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function ContainerRecipes() {
-  const [value, loading, error] = useCollection(collection(db, "recipes"), {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const recipes = value
-    ? value.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-    : [];
+  useEffect(() => {
+    const cachedRecipes = sessionStorage.getItem("recipes");
+    if (cachedRecipes) {
+      setRecipes(JSON.parse(cachedRecipes));
+      setLoading(false);
+    } else {
+      fetchRecipes();
+    }
+  }, []);
+
+  const fetchRecipes = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "recipes"));
+      const fetchedRecipes = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRecipes(fetchedRecipes);
+      sessionStorage.setItem("recipes", JSON.stringify(fetchedRecipes));
+      setLoading(false);
+    } catch (err) {
+      setError(err);
+      setLoading(false);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Render your recipes or handle them as needed
   return (
     <div>
       {recipes.map((recipe) => (
-        <div key={recipe.id}>{recipe.title}</div>
+        <div key={recipe.id}>
+          <h3>{recipe.title}</h3>
+          <ul>
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+          <p> {recipe.instructions}</p>
+        </div>
       ))}
     </div>
   );

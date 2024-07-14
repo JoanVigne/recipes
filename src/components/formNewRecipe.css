@@ -1,49 +1,81 @@
 /* FormNewRecipe.css */
 
 /* General form styling */
-.newRecipe {
-  position: relative;
-}
+
 form {
   position: absolute;
   width: 90%;
+  max-width: 500px;
   max-height: 90vh;
   padding: 5px;
   margin: auto;
   top: 10%; /* Position the top edge of the form at the middle of the parent */
   left: 50%; /* Position the left edge of the form at the middle of the parent */
-  transform: translate(-50%, -5%);
+  transform: translate(-50%, 3%);
   background-color: #f3f3f3;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-/* Style for labels */
-label {
+.closeModal {
+  cursor: pointer;
+  margin-left: 95%;
+}
+form label {
+  margin: 5px 10px 5px 10px;
   display: block;
-  margin-bottom: 5px;
   font-size: 16px;
   color: #333;
 }
 
-/* Style for input fields */
-input[type="text"],
-textarea {
+form input[type="text"],
+form textarea {
   width: 100%;
   padding: 8px;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Makes sure padding doesn't affect the overall width */
+  box-sizing: border-box;
 }
-
-/* Style for textarea */
-textarea {
+form input[type="password"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+form textarea {
   height: 100px;
-  resize: vertical; /* Allows vertical resizing, good for longer texts */
+  resize: vertical;
 }
-
-/* Style for the submit button */
-input[type="submit"] {
+form .ingredientAndAdd {
+  display: flex;
+  align-items: center;
+  width: 60%;
+}
+form .ingredientAndAdd svg {
+  background-color: green;
+  color: white;
+  padding: 1px 2px;
+  border-radius: 50px;
+  margin-left: 5px;
+}
+form .ingredientList {
+  display: flex;
+  flex-wrap: wrap;
+}
+form .ingredientAndRemove {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+form .ingredientAndRemove .remove {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 14px;
+  border: 1px solid red; /* Light grey border */
+  padding: 1px 2px; /* Some padding around the icon */
+  border-radius: 54px; /* Optional: rounds the corners for a softer look */
+  cursor: pointer;
+}
+form input[type="submit"] {
   width: 100%;
   background-color: #4caf50;
   color: white;
@@ -54,10 +86,24 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
+form input[type="submit"]:hover {
   background-color: #45a049;
 }
 
-.passwordMessage {
+form .passwordMessage {
   color: red;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  form {
+    width: 100%;
+    max-width: none;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+  form .ingredientAndAdd {
+    width: 85%;
+  }
 }

@@ -1,11 +1,12 @@
 import "./App.css";
 import ContainerRecipes from "./components/ContainerRecipes";
-import FormNewRecipe from "./components/FormNewRecipe";
+
+import Header from "./components/Header";
 
 function App() {
   return (
     <div className="App">
-      <FormNewRecipe />
+      <Header />
       <main>
         <ContainerRecipes />
       </main>

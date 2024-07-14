@@ -1,0 +1,67 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+nav a:hover {
+  color: #007bff;
+}
+nav .createRecipeButton {
+  width: 170px;
+}
+nav .search {
+  background-color: black;
+  padding: 5px 10px;
+  border-radius: 55px;
+}
+nav .searchRecipeInput {
+  transition: all 1s ease;
+}
+nav .searchRecipeInput.inactive {
+  width: 0;
+  padding: 0;
+  border: none;
+}
+nav .searchRecipeInput.active {
+  width: 200px;
+  padding: 5px 20px;
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  nav {
+    margin-top: 10px;
+
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  nav a {
+    margin: 10px 0;
+  }
+}

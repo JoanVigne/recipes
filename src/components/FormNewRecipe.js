@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import "./formNewRecipe.css";
 import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
-const FormNewRecipe = () => {
+const FormNewRecipe = ({ closeModal }) => {
   const [recipe, setRecipe] = useState({
     title: "",
-    ingredients: "",
+    ingredients: [],
     instructions: "",
   });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [password, setPassword] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const handlePasswordChange = (e) => {
@@ -18,7 +20,27 @@ const FormNewRecipe = () => {
   const handleChange = (e) => {
     setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };
+  // ingredients
+  const handleIngredientChange = (value) => {
+    setRecipe({ ...recipe, currentIngredient: value });
+  };
 
+  const addIngredientField = () => {
+    if (recipe.currentIngredient.trim() !== "") {
+      setRecipe({
+        ...recipe,
+        ingredients: [...recipe.ingredients, recipe.currentIngredient],
+        currentIngredient: "", // Clear the input field after adding
+      });
+    }
+  };
+
+  const removeIngredientField = (index) => {
+    const newIngredients = [...recipe.ingredients];
+    newIngredients.splice(index, 1);
+    setRecipe({ ...recipe, ingredients: newIngredients });
+  };
+  // ingredients
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== process.env.REACT_APP_CREATE_RECIPE_PASSWORD) {
@@ -35,66 +57,89 @@ const FormNewRecipe = () => {
       console.log("Recipe added successfully");
       // Reset the form or provide further user feedback
       setRecipe({ title: "", ingredients: "", instructions: "" });
-      setIsModalOpen(false); // Close the modal on success
+      closeModal(); // Close the modal on success
     } catch (error) {
       console.error("Error adding recipe: ", error);
       // Handle errors, e.g., show an error message to the user
     }
   };
 
-  const openModal = () => setIsModalOpen(!isModalOpen);
-  const closeModal = () => setIsModalOpen(false);
-
   return (
     <aside className="newRecipe">
-      <button onClick={openModal}>
-        {isModalOpen ? "Close new recipe" : "Create new recipe"}
-      </button>
-      {isModalOpen && (
-        <div className="modal">
-          <form onSubmit={handleSubmit}>
-            <button type="button" onClick={closeModal}>
-              Close
-            </button>
-            <label htmlFor="title">name:</label>
+      <div className="modal">
+        <form onSubmit={handleSubmit}>
+          <FontAwesomeIcon
+            icon={faTimes}
+            onClick={closeModal}
+            className="closeModal"
+          />
+          <label htmlFor="title">Nom:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={recipe.title}
+            onChange={handleChange}
+          />
+          <label htmlFor="ingredients">Ingredients:</label>
+          <div className="ingredientAndAdd">
             <input
               type="text"
-              id="title"
-              name="title"
-              value={recipe.title}
-              onChange={handleChange}
+              value={recipe.currentIngredient}
+              onChange={(e) => handleIngredientChange(e.target.value)}
+              placeholder="Example: 100g de farine"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault(); // Prevent the form from being submitted
+                  addIngredientField();
+                }
+              }}
             />
-            <label htmlFor="ingredients">Ingredients:</label>
-            <textarea
-              id="ingredients"
-              name="ingredients"
-              value={recipe.ingredients}
-              onChange={handleChange}
+            <FontAwesomeIcon
+              className="addIngredient"
+              icon={faPlus}
+              onClick={addIngredientField}
             />
-            <label htmlFor="ingredients">Instructions:</label>
-            <textarea
-              id="instructions"
-              name="instructions"
-              value={recipe.instructions}
-              onChange={handleChange}
+            {/* <button type="button" onClick={addIngredientField}>
+              Add Ingredient
+            </button> */}
+          </div>
+          <p className="ingredientList">
+            {recipe.ingredients.map((ingredient, index) => (
+              <span key={index} className="ingredientAndRemove">
+                {ingredient}
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  onClick={() => removeIngredientField(index)}
+                  className="remove"
+                />
+                {index === recipe.ingredients.length - 1 ? "." : ","}
+              </span>
+            ))}
+          </p>
+          <label htmlFor="ingredients">Instructions:</label>
+          <textarea
+            id="instructions"
+            name="instructions"
+            value={recipe.instructions}
+            onChange={handleChange}
+          />
+          <label htmlFor="password">Password:</label>
+          <div className="passwordAndMessage">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
             />
-            <label htmlFor="password">Password:</label>
-            <div className="passwordAndMessage">
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
 
-              <p className="passwordMessage">{passwordMessage}</p>
-            </div>
+            <p className="passwordMessage">{passwordMessage}</p>
+          </div>
 
-            <input type="submit" value="Save Recipe" />
-          </form>
-        </div>
-      )}
+          <input type="submit" value="Save Recipe" />
+        </form>
+      </div>
     </aside>
   );
 };
