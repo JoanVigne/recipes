@@ -7,11 +7,23 @@
   justify-content: space-between;
 }
 .containerRecipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: rgba(243, 223, 223, 0.5);
   margin: 20px;
-  padding: 10px;
   border-radius: 20px;
   min-width: 40%;
+}
+.containerRecipe img {
+  width: 100%;
+  height: 150px;
+  border-radius: 20px 20px 0 0;
+  background-image: url("../assets/tarte.jpg");
+  background-size: cover;
+}
+.containerRecipe .containerText {
+  padding: 10px;
 }
 .containerRecipe ul {
 }

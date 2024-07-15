@@ -17,7 +17,9 @@ export default function ContainerRecipes() {
       fetchRecipes();
     }
   }, []);
-
+  function openRecipe(recipe) {
+    console.log("openRecipe", recipe);
+  }
   const fetchRecipes = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "recipes"));
@@ -40,18 +42,25 @@ export default function ContainerRecipes() {
   return (
     <div className="containerAllRecipes">
       {recipes.map((recipe) => (
-        <div className="containerRecipe" key={recipe.id}>
-          <h3 className="titleAndPostedBy">
-            {recipe.title}
-            <span>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</span>
-          </h3>
-          <ul>
-            <h3>Ingrédients</h3>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
-          <p> {recipe.instructions}</p>
+        <div
+          className="containerRecipe"
+          key={recipe.id}
+          onClick={() => openRecipe(recipe)}
+        >
+          <img src="" alt={recipe.title} />
+          <div className="containerText">
+            <h3 className="titleAndPostedBy">
+              {recipe.title}
+              <span>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</span>
+            </h3>
+            <ul>
+              <h3>Ingrédients</h3>
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+            <p> {recipe.instructions}</p>
+          </div>
         </div>
       ))}
     </div>
