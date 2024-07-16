@@ -47,7 +47,11 @@ export default function ContainerRecipes() {
           key={recipe.id}
           onClick={() => openRecipe(recipe)}
         >
-          <img src="" alt={recipe.title} />
+          <img
+            className="imageRecipe"
+            alt={recipe.title}
+            src={recipe.imageUrl ? recipe.imageUrl : ""}
+          />
           <div className="containerText">
             <h3 className="titleAndPostedBy">
               {recipe.title}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./formNewRecipe.css";
-import { db } from "../firebaseConfig";
+import { db, storage } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 const FormNewRecipe = ({ closeModal }) => {
   const [recipe, setRecipe] = useState({
     title: "",
@@ -45,22 +45,62 @@ const FormNewRecipe = ({ closeModal }) => {
     setRecipe({ ...recipe, ingredients: newIngredients });
   };
   // ingredients
+  // IMAGE
+  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setImageFile(file);
+    }
+  };
+  // IMAGE
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== process.env.REACT_APP_CREATE_RECIPE_PASSWORD) {
       console.error("Incorrect password");
       setPasswordMessage("Incorrect password");
-      console.log(process.env.REACT_APP_CREATE_RECIPE_PASSWORD);
-      console.log("password", password);
+      console.log(imageFile);
       return;
     }
     try {
-      await addDoc(collection(db, "recipes"), {
-        ...recipe,
-      });
-      console.log("Recipe added successfully");
+      // Assuming `imageFile` is the File object you get from the file input
+      // and `imagePreviewUrl` is the state variable holding the image's data URL
+      if (imageFile) {
+        const storageRef = ref(storage, `recipes/${imageFile.name}`);
+        const uploadTask = await uploadBytesResumable(storageRef, imageFile);
+
+        // Get the URL of the uploaded file
+        const imageUrl = await getDownloadURL(uploadTask.ref);
+
+        // Include the imageUrl in the document you're adding to Firestore
+        await addDoc(collection(db, "recipes"), {
+          ...recipe,
+          imageUrl, // Add the imageUrl to your recipe document
+        });
+        console.log("Recipe added successfully");
+      } else {
+        // Handle case where no image is selected, if necessary
+        await addDoc(collection(db, "recipes"), {
+          ...recipe,
+        });
+
+        console.log("Recipe added without an image");
+      }
+      // add to session storage
+      let existingRecipes = sessionStorage.getItem("recipes");
+      existingRecipes = existingRecipes ? JSON.parse(existingRecipes) : [];
+      existingRecipes.unshift(recipe);
+      sessionStorage.setItem("recipes", JSON.stringify(existingRecipes));
       // Reset the form or provide further user feedback
       setRecipe({ title: "", ingredients: "", instructions: "", postedBy: "" });
+      setImageFile(null); // Assuming you have a state to hold the file
+      setImagePreviewUrl(""); // Reset the image preview URL
       closeModal(); // Close the modal on success
     } catch (error) {
       console.error("Error adding recipe: ", error);
@@ -124,6 +164,26 @@ const FormNewRecipe = ({ closeModal }) => {
             value={recipe.instructions}
             onChange={handleChange}
           />
+          <div className="containerLabelInput">
+            <div>
+              <label htmlFor="image">Image de présentation</label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                onChange={(e) => handleFileChange(e)}
+              />
+            </div>
+
+            {imagePreviewUrl && (
+              <img
+                className="imagePreview"
+                src={imagePreviewUrl}
+                alt="Preview"
+              />
+            )}
+          </div>
+
           <div className="containerLabelInput">
             <label htmlFor="postedBy">Posté par:</label>
             <input

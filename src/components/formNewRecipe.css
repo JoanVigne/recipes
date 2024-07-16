@@ -2,7 +2,7 @@ form {
   position: absolute;
   width: 90%;
   max-width: 500px;
-  max-height: 90vh;
+
   padding: 5px;
   margin: auto;
   top: 10%;
@@ -68,6 +68,7 @@ form .ingredientAndRemove {
   display: flex;
   align-items: center;
   margin: 2px 5px;
+  border: 2px #4caf50 solid;
   border-radius: 4px;
   padding: 2px;
   font-weight: 700;
@@ -81,6 +82,12 @@ form .ingredientAndRemove .remove {
   padding: 1px 2px;
   border-radius: 54px;
   cursor: pointer;
+}
+.imagePreview {
+  width: 100%;
+  max-width: 350px;
+  height: 90px;
+  object-fit: cover;
 }
 form input[type="submit"] {
   display: flex;
@@ -115,5 +122,9 @@ form .passwordMessage {
 @media (max-width: 768px) {
   form .ingredientAndAdd {
     width: 85%;
+  }
+  .imagePreview {
+    width: 80%;
+    object-fit: cover;
   }
 }

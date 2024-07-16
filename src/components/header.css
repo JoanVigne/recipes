@@ -22,6 +22,7 @@ nav a {
   color: #333;
   margin-left: 20px;
   font-size: 18px;
+  text-align: center;
 }
 
 nav a:hover {
@@ -37,15 +38,14 @@ nav .search {
 }
 nav .searchRecipeInput {
   transition: all 1s ease;
+  /*   padding: 5px 20px; */
 }
 nav .searchRecipeInput.inactive {
   width: 0;
-  padding: 0;
   border: none;
 }
 nav .searchRecipeInput.active {
   width: 200px;
-  padding: 5px 20px;
 }
 
 @media (max-width: 600px) {
@@ -55,8 +55,9 @@ nav .searchRecipeInput.active {
   }
 
   nav {
+    flex-direction: column;
     margin-top: 10px;
-
+    align-items: center;
     justify-content: space-around;
     width: 100%;
   }
