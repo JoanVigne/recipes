@@ -7,53 +7,63 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
 }
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
+.containerLogoTitle {
+  display: flex;
+  align-items: center;
 }
-
+.logo {
+  width: 30px;
+  margin-right: 10px;
+}
+h1 {
+  text-align: center;
+}
 nav {
   display: flex;
   align-items: center;
 }
-nav a {
+
+nav button {
   text-decoration: none;
   color: #333;
-  margin-left: 20px;
-  font-size: 18px;
+  margin: 5px;
+  font-size: 14px;
   text-align: center;
 }
 
-nav a:hover {
+nav button:hover {
   color: #007bff;
 }
 nav .createRecipeButton {
-  width: 170px;
+  width: 140px;
 }
 nav .search {
   background-color: black;
-  padding: 5px 10px;
+  padding: 5px 7px;
   border-radius: 55px;
 }
 nav .searchRecipeInput {
   transition: all 1s ease;
   /*   padding: 5px 20px; */
+  margin: 5px 20px;
 }
 nav .searchRecipeInput.inactive {
+  opacity: 0;
   width: 0;
   border: none;
 }
 nav .searchRecipeInput.active {
-  width: 200px;
+  width: 170px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 790px) {
   header {
     flex-direction: column;
     padding: 10px;
   }
-
+  h1 {
+    font-size: 1.6em;
+  }
   nav {
     flex-direction: column;
     margin-top: 10px;

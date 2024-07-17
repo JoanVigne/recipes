@@ -4,6 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
 import FormNewRecipe from "./FormNewRecipe";
 import ModalSearchedRecipes from "./ModalSearchedRecipes";
+import spoonlogo from "../assets/spoon.png";
 
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,11 +29,14 @@ export default function Header() {
   return (
     <header>
       {searchedRecipe && <ModalSearchedRecipes recipes={recipes} />}
+      <div className="containerLogoTitle">
+        <img className="logo" src={spoonlogo} alt="" />
+        <h1>Recette de famille</h1>
+      </div>
 
-      <h1>Recette de famille</h1>
       {isModalOpen && <FormNewRecipe closeModal={closeModal} />}
       <nav>
-        <a
+        <button
           href="/create-recipe"
           className="createRecipeButton"
           onClick={(e) => {
@@ -41,14 +45,13 @@ export default function Header() {
           }}
         >
           Créer une recette
-        </a>
+        </button>
         <input
           className={`searchRecipeInput ${isInputOpen ? "active" : "inactive"}`}
           type="text"
           name="searchRecipe"
         />
-        <a
-          href="/search"
+        <button
           className="search"
           onClick={(e) => {
             e.preventDefault();
@@ -60,7 +63,7 @@ export default function Header() {
           }}
         >
           <FontAwesomeIcon icon={faSearch} style={{ color: "white" }} />
-        </a>
+        </button>
       </nav>
     </header>
   );
