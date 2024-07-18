@@ -8,6 +8,12 @@ footer {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
 }
+header {
+  margin-bottom: 50px;
+}
+footer {
+  margin-top: 50px;
+}
 .containerLogoTitle {
   display: flex;
   align-items: center;

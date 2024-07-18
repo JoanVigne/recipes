@@ -18,8 +18,8 @@ export default function Footer() {
         Créer une recette
       </button>
       <p>
-        Pour supprimer une recette, <br /> envoie moi un message directement sur
-        whatsapp.
+        Pour modifier ou supprimer une recette, <br /> envoie moi un message
+        directement sur whatsapp.
       </p>
       {isModalOpen && <FormNewRecipe closeModal={closeModal} />}
       <p>© 2021, All rights reserved.</p>
