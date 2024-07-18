@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import "./containerRecipes.css";
+import Recipe from "./Atoms/Recipe";
 
 export default function ContainerRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -17,9 +18,7 @@ export default function ContainerRecipes() {
       fetchRecipes();
     }
   }, []);
-  function openRecipe(recipe) {
-    console.log("openRecipe", recipe);
-  }
+
   const fetchRecipes = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "recipes"));
@@ -35,37 +34,20 @@ export default function ContainerRecipes() {
       setLoading(false);
     }
   };
-
+  function openRecipe(recipe) {
+    console.log("openRecipe", recipe);
+  }
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="containerAllRecipes">
       {recipes.map((recipe) => (
-        <div
-          className="containerRecipe"
+        <Recipe
           key={recipe.id ? recipe.id : recipe.createAt}
-          onClick={() => openRecipe(recipe)}
-        >
-          <img
-            className="imageRecipe"
-            alt={"photo de " + recipe.title + " introuvable"}
-            src={recipe.imageUrl ? recipe.imageUrl : ""}
-          />
-          <div className="containerText">
-            <h3 className="titleAndPostedBy">
-              {recipe.title}
-              <span>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</span>
-            </h3>
-            <ul>
-              <h3>Ingrédients</h3>
-              {recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-            <p> {recipe.instructions}</p>
-          </div>
-        </div>
+          recipe={recipe}
+          openRecipe={openRecipe}
+        />
       ))}
     </div>
   );

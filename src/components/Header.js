@@ -12,7 +12,14 @@ export default function Header() {
   const [recipes, setRecipes] = useState([]);
 
   const [searchedRecipe, setSearchedRecipe] = useState("");
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    const isAlreadyAModalOpen = document.querySelectorAll(".modal");
+    if (isAlreadyAModalOpen.length > 0) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    setIsModalOpen(false);
+  };
   function searchThisWord() {
     const cachedRecipes = sessionStorage.getItem("recipes");
     setRecipes(JSON.parse(cachedRecipes));

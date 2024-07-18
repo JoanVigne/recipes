@@ -6,10 +6,10 @@ footer {
   padding: 10px 20px;
   background-color: #f8f9fa;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
 header {
   margin-bottom: 50px;
+  position: relative;
 }
 footer {
   margin-top: 50px;
