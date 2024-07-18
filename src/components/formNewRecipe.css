@@ -83,20 +83,11 @@ form .ingredientAndRemove .remove {
   border-radius: 54px;
   cursor: pointer;
 }
-.container-inputfile-title input[type="file"] {
-  display: none;
-}
-.container-inputfile-title label {
+
+.containerPreviewAndRemove {
   display: flex;
-  justify-content: center;
-  width: 200px;
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 15px;
-  margin: 8px auto;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  align-items: center;
+  margin: 5px 0;
 }
 .imagePreview {
   width: 100%;
@@ -108,15 +99,22 @@ form .ingredientAndRemove .remove {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px dashed #ccc;
+  border: 2px dashed #4caf50;
   padding: 5px;
   width: 100%;
+}
+.changeImage {
+  background-color: #ffcccc;
+  color: #440000;
+  border: 1px solid #cc0000;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 form input[type="submit"] {
   display: flex;
   justify-content: center;
   width: 200px;
-  height: 70px;
   background-color: #4caf50;
   color: white;
   padding: 10px 15px;

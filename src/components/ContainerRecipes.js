@@ -44,12 +44,12 @@ export default function ContainerRecipes() {
       {recipes.map((recipe) => (
         <div
           className="containerRecipe"
-          key={recipe.id}
+          key={recipe.id ? recipe.id : recipe.createAt}
           onClick={() => openRecipe(recipe)}
         >
           <img
             className="imageRecipe"
-            alt={recipe.title}
+            alt={"photo de " + recipe.title + " introuvable"}
             src={recipe.imageUrl ? recipe.imageUrl : ""}
           />
           <div className="containerText">

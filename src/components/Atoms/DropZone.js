@@ -12,7 +12,8 @@ export default function DropZone({ handleFileChange }) {
   return (
     <div className="dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
       <label htmlFor="image" style={{ width: "100%" }}>
-        Faire glisser une image ici.
+        Dépose une photo de ta recette. <br />
+        Les photos moches sont accéptées !
       </label>
     </div>
   );

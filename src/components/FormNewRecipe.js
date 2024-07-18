@@ -82,7 +82,8 @@ const FormNewRecipe = ({ closeModal }) => {
         // Include the imageUrl in the document you're adding to Firestore
         await addDoc(collection(db, "recipes"), {
           ...recipe,
-          imageUrl, // Add the imageUrl to your recipe document
+          imageUrl,
+          createdAt: new Date(),
         });
         console.log("Recipe added successfully");
       } else {
@@ -110,112 +111,120 @@ const FormNewRecipe = ({ closeModal }) => {
   };
 
   return (
-    <aside className="newRecipe">
-      <div className="modal">
-        <form onSubmit={handleSubmit}>
-          <FontAwesomeIcon
-            icon={faTimes}
-            onClick={closeModal}
-            className="closeModal"
-          />
-          <label htmlFor="title">Nom:</label>
+    <aside className="modal">
+      <form onSubmit={handleSubmit}>
+        <FontAwesomeIcon
+          icon={faTimes}
+          onClick={closeModal}
+          className="closeModal"
+        />
+        <label htmlFor="title">Nom:</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value={recipe.title}
+          onChange={handleChange}
+        />
+        <label htmlFor="ingredients">Ingredients:</label>
+        <div className="ingredientAndAdd">
           <input
             type="text"
-            id="title"
-            name="title"
-            value={recipe.title}
-            onChange={handleChange}
+            value={recipe.currentIngredient}
+            onChange={(e) => handleIngredientChange(e.target.value)}
+            placeholder="Example: 100g de farine"
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault(); // Prevent the form from being submitted
+                addIngredientField();
+              }
+            }}
           />
-          <label htmlFor="ingredients">Ingredients:</label>
-          <div className="ingredientAndAdd">
-            <input
-              type="text"
-              value={recipe.currentIngredient}
-              onChange={(e) => handleIngredientChange(e.target.value)}
-              placeholder="Example: 100g de farine"
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault(); // Prevent the form from being submitted
-                  addIngredientField();
-                }
-              }}
-            />
-            <FontAwesomeIcon
-              className="addIngredient"
-              icon={faPlus}
-              onClick={addIngredientField}
-            />
-          </div>
-          <p className="ingredientList">
-            {recipe.ingredients.map((ingredient, index) => (
-              <span key={index} className="ingredientAndRemove">
-                {ingredient}
-                <FontAwesomeIcon
-                  icon={faMinus}
-                  onClick={() => removeIngredientField(index)}
-                  className="remove"
-                />
-              </span>
-            ))}
-          </p>
-          <label htmlFor="ingredients">Instructions:</label>
-          <textarea
-            id="instructions"
-            name="instructions"
-            value={recipe.instructions}
-            onChange={handleChange}
+          <FontAwesomeIcon
+            className="addIngredient"
+            icon={faPlus}
+            onClick={addIngredientField}
           />
-          <div className="containerLabelInput">
-            <div className="container-inputfile-title">
-              <label htmlFor="image">ou importer en cliquant ici</label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                onChange={(e) => handleFileChange(e)}
+        </div>
+        <p className="ingredientList">
+          {recipe.ingredients.map((ingredient, index) => (
+            <span key={index} className="ingredientAndRemove">
+              {ingredient}
+              <FontAwesomeIcon
+                icon={faMinus}
+                onClick={() => removeIngredientField(index)}
+                className="remove"
               />
-            </div>
-
-            {imagePreviewUrl ? (
+            </span>
+          ))}
+        </p>
+        <label htmlFor="ingredients">Instructions:</label>
+        <textarea
+          id="instructions"
+          name="instructions"
+          value={recipe.instructions}
+          onChange={handleChange}
+        />
+        <div className="containerPreviewAndRemove">
+          {imagePreviewUrl ? (
+            <>
               <img
                 className="imagePreview"
                 src={imagePreviewUrl}
                 alt="Preview"
               />
-            ) : (
-              <>
-                <DropZone handleFileChange={handleFileChange} />
-              </>
-            )}
-          </div>
+              <button
+                className="changeImage"
+                onClick={() => {
+                  setImageFile(null);
+                  setImagePreviewUrl("");
+                }}
+              >
+                Changer d'image
+              </button>
+            </>
+          ) : (
+            <>
+              <DropZone handleFileChange={handleFileChange} />
+              <div className="container-inputfile-title">
+                <label htmlFor="image">ou de maniére plus classique ici</label>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  onChange={(e) => handleFileChange(e)}
+                />
+              </div>
+            </>
+          )}
+        </div>
 
-          <div className="containerLabelInput">
-            <label htmlFor="postedBy">Posté par:</label>
-            <input
-              type="text"
-              id="postedBy"
-              name="postedBy"
-              value={recipe.postedBy}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="containerLabelInput">
-            <label htmlFor="password">Password:</label>
+        <div className="containerLabelInput">
+          <label htmlFor="postedBy">Posté par:</label>
+          <input
+            type="text"
+            id="postedBy"
+            name="postedBy"
+            value={recipe.postedBy}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="containerLabelInput">
+          <label htmlFor="password">Password:</label>
 
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
 
-            <p className="passwordMessage">{passwordMessage}</p>
-          </div>
+          <p className="passwordMessage">{passwordMessage}</p>
+        </div>
 
-          <input type="submit" value="Save Recipe" />
-        </form>
-      </div>
+        <input type="submit" value="Save Recipe" />
+      </form>
     </aside>
   );
 };
