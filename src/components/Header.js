@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import "./header.css";
+import "./headerfooter.css";
 import FormNewRecipe from "./FormNewRecipe";
 import ModalSearchedRecipes from "./ModalSearchedRecipes";
 import spoonlogo from "../assets/spoon.png";

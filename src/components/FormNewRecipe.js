@@ -5,6 +5,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import DropZone from "./Atoms/DropZone";
 const FormNewRecipe = ({ closeModal }) => {
   const [recipe, setRecipe] = useState({
     title: "",
@@ -165,8 +166,8 @@ const FormNewRecipe = ({ closeModal }) => {
             onChange={handleChange}
           />
           <div className="containerLabelInput">
-            <div>
-              <label htmlFor="image">Image de présentation</label>
+            <div className="container-inputfile-title">
+              <label htmlFor="image">ou importer en cliquant ici</label>
               <input
                 type="file"
                 id="image"
@@ -175,12 +176,16 @@ const FormNewRecipe = ({ closeModal }) => {
               />
             </div>
 
-            {imagePreviewUrl && (
+            {imagePreviewUrl ? (
               <img
                 className="imagePreview"
                 src={imagePreviewUrl}
                 alt="Preview"
               />
+            ) : (
+              <>
+                <DropZone handleFileChange={handleFileChange} />
+              </>
             )}
           </div>
 

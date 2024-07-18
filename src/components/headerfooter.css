@@ -1,4 +1,5 @@
-header {
+header,
+footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,11 +32,20 @@ nav button {
   text-align: center;
 }
 
-nav button:hover {
-  color: #007bff;
-}
-nav .createRecipeButton {
+.createRecipeButton {
   width: 140px;
+  background-color: #4caf50;
+  display: flex;
+  justify-content: center;
+  color: white;
+  padding: 10px 15px;
+  margin: 8px auto;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.createRecipeButton:hover {
+  background-color: #45a049;
 }
 nav .search {
   background-color: black;
@@ -57,7 +67,8 @@ nav .searchRecipeInput.active {
 }
 
 @media (max-width: 790px) {
-  header {
+  header,
+  footer {
     flex-direction: column;
     padding: 10px;
   }
