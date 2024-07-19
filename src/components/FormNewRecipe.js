@@ -130,10 +130,11 @@ const FormNewRecipe = ({ closeModal }) => {
         <div className="ingredientAndAdd">
           <input
             type="text"
-            value={recipe.currentIngredient}
+            id="ingredients"
+            value={recipe.currentIngredient || ""}
             onChange={(e) => handleIngredientChange(e.target.value)}
             placeholder="Example: 100g de farine"
-            onKeyPress={(e) => {
+            onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault(); // Prevent the form from being submitted
                 addIngredientField();
@@ -147,18 +148,19 @@ const FormNewRecipe = ({ closeModal }) => {
           />
         </div>
         <p className="ingredientList">
-          {recipe.ingredients.map((ingredient, index) => (
-            <span key={index} className="ingredientAndRemove">
-              {ingredient}
-              <FontAwesomeIcon
-                icon={faMinus}
-                onClick={() => removeIngredientField(index)}
-                className="remove"
-              />
-            </span>
-          ))}
+          {recipe.ingredients.lenght > 0 &&
+            recipe.ingredients.map((ingredient, index) => (
+              <span key={index} className="ingredientAndRemove">
+                {ingredient}
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  onClick={() => removeIngredientField(index)}
+                  className="remove"
+                />
+              </span>
+            ))}
         </p>
-        <label htmlFor="ingredients">Instructions:</label>
+        <label htmlFor="instructions">Instructions:</label>
         <textarea
           id="instructions"
           name="instructions"

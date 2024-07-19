@@ -2,62 +2,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-.titleAndPostedBy {
-  display: flex;
-  justify-content: space-between;
-}
-.containerRecipe {
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(243, 242, 242, 0.7);
-  margin: 20px;
-  border-radius: 20px;
-  min-width: 40%;
-  animation: fadeInUp 0.5s ease-out forwards;
-}
-.containerRecipe .imageRecipe {
-  width: 100%;
-  height: 150px;
-  border-radius: 20px 20px 0 0;
-  background-image: url("../assets/tarte.jpg");
-  background-size: cover;
-  object-fit: cover;
-  animation: expandHeight 1.5s ease-out forwards;
-  overflow: hidden;
-}
-.containerRecipe .containerText {
-  padding: 10px;
-  font-weight: 700;
-}
-.containerRecipe .containerText * {
-  font-weight: 500;
-}
-.containerRecipe ul {
-}
+
 @media (max-width: 768px) {
   .containerAllRecipes {
     display: flex;
     flex-direction: column;
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes expandHeight {
-  0% {
-    height: 0;
-  }
-  33% {
-    height: 0;
-  }
-  100% {
-    height: 150px;
   }
 }

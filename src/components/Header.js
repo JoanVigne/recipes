@@ -13,11 +13,7 @@ export default function Header() {
 
   const [searchedRecipe, setSearchedRecipe] = useState("");
   const closeModal = () => {
-    const isAlreadyAModalOpen = document.querySelectorAll(".modal");
-    if (isAlreadyAModalOpen.length > 0) {
-      window.scrollTo(0, 0);
-      return;
-    }
+    window.scrollTo(0, 0);
     setIsModalOpen(false);
   };
   function searchThisWord() {

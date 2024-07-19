@@ -1,6 +1,9 @@
+import "./recipe.css";
+
 export default function Recipe({ recipe, openRecipe }) {
   return (
     <div
+      // here the key ?
       className="containerRecipe"
       onClick={() => openRecipe && openRecipe(recipe)}
     >
@@ -12,14 +15,15 @@ export default function Recipe({ recipe, openRecipe }) {
       <div className="containerText">
         <h3 className="titleAndPostedBy">
           {recipe.title}
-          <span>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</span>
+          <i>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</i>
         </h3>
+        <h3>Ingrédients</h3>
         <ul>
-          <h3>Ingrédients</h3>
           {recipe.ingredients.map((ingredient, index) => (
             <li key={index}>{ingredient}</li>
           ))}
         </ul>
+        <p>{recipe.instructions}</p>
       </div>
     </div>
   );

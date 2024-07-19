@@ -23,10 +23,10 @@ body {
   background-size: cover;
 }
 
-ol,
+/* ol,
 ul {
   list-style: none;
-}
+} */
 
 img {
   max-width: 100%;
