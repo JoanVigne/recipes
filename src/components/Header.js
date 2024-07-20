@@ -49,10 +49,11 @@ export default function Header() {
         >
           Créer une recette
         </button>
-        <input
+        {/*         <input
           className={`searchRecipeInput ${isInputOpen ? "active" : "inactive"}`}
           type="text"
           name="searchRecipe"
+          placeholder="Rechercher une recette"
         />
         <button
           className="search"
@@ -66,7 +67,7 @@ export default function Header() {
           }}
         >
           <FontAwesomeIcon icon={faSearch} style={{ color: "white" }} />
-        </button>
+        </button> */}
       </nav>
     </header>
   );
