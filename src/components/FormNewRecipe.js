@@ -16,6 +16,7 @@ const FormNewRecipe = ({ closeModal }) => {
 
   const [password, setPassword] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -63,47 +64,61 @@ const FormNewRecipe = ({ closeModal }) => {
   // IMAGE
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      recipe.title.trim() === "" ||
+      recipe.ingredients.length === 0 ||
+      recipe.instructions.trim() === "" ||
+      recipe.postedBy.trim() === ""
+    ) {
+      console.error("Please fill all the fields");
+      setPasswordMessage("Formulaire incomplet.");
+      console.log(imageFile);
+      return;
+    }
     if (password !== process.env.REACT_APP_CREATE_RECIPE_PASSWORD) {
       console.error("Incorrect password");
       setPasswordMessage("Incorrect password");
       console.log(imageFile);
       return;
     }
+
     try {
       // Assuming `imageFile` is the File object you get from the file input
       // and `imagePreviewUrl` is the state variable holding the image's data URL
-      if (imageFile) {
-        const storageRef = ref(storage, `recipes/${imageFile.name}`);
-        const uploadTask = await uploadBytesResumable(storageRef, imageFile);
-
-        // Get the URL of the uploaded file
-        const imageUrl = await getDownloadURL(uploadTask.ref);
-
-        // Include the imageUrl in the document you're adding to Firestore
-        await addDoc(collection(db, "recipes"), {
-          ...recipe,
-          imageUrl,
-          createdAt: new Date(),
-        });
-        console.log("Recipe added successfully");
-      } else {
-        // Handle case where no image is selected, if necessary
-        await addDoc(collection(db, "recipes"), {
-          ...recipe,
-        });
-
-        console.log("Recipe added without an image");
+      if (!imageFile) {
+        console.error("Please add an image");
+        setPasswordMessage("Déposer une photo.");
+        return;
       }
+
+      const storageRef = ref(storage, `recipes/${imageFile.name}`);
+      const uploadTask = await uploadBytesResumable(storageRef, imageFile);
+
+      // Get the URL of the uploaded file
+      const imageUrl = await getDownloadURL(uploadTask.ref);
+      const newrecipe = {
+        ...recipe,
+        imageUrl,
+        createdAt: new Date(),
+      };
+      // Include the imageUrl in the document you're adding to Firestore
+      await addDoc(collection(db, "recipes"), newrecipe);
+      console.log("Recipe added successfully");
+
       // add to session storage
       let existingRecipes = sessionStorage.getItem("recipes");
       existingRecipes = existingRecipes ? JSON.parse(existingRecipes) : [];
-      existingRecipes.unshift(recipe);
+      existingRecipes.unshift(newrecipe);
       sessionStorage.setItem("recipes", JSON.stringify(existingRecipes));
       // Reset the form or provide further user feedback
       setRecipe({ title: "", ingredients: "", instructions: "", postedBy: "" });
       setImageFile(null); // Assuming you have a state to hold the file
       setImagePreviewUrl(""); // Reset the image preview URL
       closeModal(); // Close the modal on success
+      setShowSuccessModal(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       console.error("Error adding recipe: ", error);
       // Handle errors, e.g., show an error message to the user
@@ -112,6 +127,7 @@ const FormNewRecipe = ({ closeModal }) => {
 
   return (
     <aside className="modal">
+      {showSuccessModal && <div className="success-modal">Recette créée !</div>}
       <form onSubmit={handleSubmit}>
         <FontAwesomeIcon
           icon={faTimes}
@@ -148,7 +164,7 @@ const FormNewRecipe = ({ closeModal }) => {
           />
         </div>
         <p className="ingredientList">
-          {recipe.ingredients.lenght > 0 &&
+          {recipe.ingredients.length > 0 &&
             recipe.ingredients.map((ingredient, index) => (
               <span key={index} className="ingredientAndRemove">
                 {ingredient}
@@ -189,7 +205,7 @@ const FormNewRecipe = ({ closeModal }) => {
             <>
               <DropZone handleFileChange={handleFileChange} />
               <div className="container-inputfile-title">
-                <label htmlFor="image">ou de maniére plus classique ici</label>
+                <label htmlFor="image">Ou de maniére plus classique ici</label>
                 <input
                   type="file"
                   id="image"

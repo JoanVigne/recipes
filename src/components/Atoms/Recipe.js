@@ -10,6 +10,7 @@ export default function Recipe({ recipe, openRecipe }) {
       <img
         className="imageRecipe"
         alt={"photo de " + recipe.title + " introuvable"}
+        onClick={() => window.open(recipe.imageUrl)}
         src={recipe.imageUrl ? recipe.imageUrl : ""}
       />
       <div className="containerText">

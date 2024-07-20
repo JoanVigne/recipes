@@ -44,7 +44,13 @@ export default function ContainerRecipes() {
     <div className="containerAllRecipes">
       {recipes.map((recipe) => (
         <Recipe
-          key={recipe.id ? recipe.id : recipe.createAt}
+          key={
+            recipe.id
+              ? recipe.id
+              : recipe.createAt
+              ? recipe.createAt
+              : Math.random()
+          }
           recipe={recipe}
           openRecipe={openRecipe}
         />
