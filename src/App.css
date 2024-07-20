@@ -13,6 +13,10 @@ ul {
   padding: 0;
   font-weight: normal;
 }
+@font-face {
+  font-family: "ZillaSlab";
+  src: url("./assets/fonts/Zilla_Slab/ZillaSlab-Regular.ttf") format("truetype");
+}
 html {
   scroll-behavior: smooth;
 }
@@ -21,6 +25,7 @@ body {
   /*   height: 100vh; */
   background-image: url("./assets/herbs.jpg");
   background-size: cover;
+  font-family: "ZillaSlab", cursive;
 }
 
 /* ol,
