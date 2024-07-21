@@ -1,4 +1,5 @@
 import "./recipe.css";
+import React from "react";
 
 export default function Recipe({ recipe, openRecipe }) {
   const myIcons = [
@@ -65,7 +66,17 @@ export default function Recipe({ recipe, openRecipe }) {
             }
           })}
         </ul>
-        <p>{recipe.instructions}</p>
+        {recipe.instructions.split(".").map((sentence, index, array) => {
+          const trimmedSentence = sentence.trim();
+          const capitalizedSentence =
+            trimmedSentence.charAt(0).toUpperCase() + trimmedSentence.slice(1);
+          return (
+            <p key={index}>
+              {capitalizedSentence}
+              {index < array.length - 1 ? "." : ""}
+            </p>
+          );
+        })}
       </div>
     </div>
   );
