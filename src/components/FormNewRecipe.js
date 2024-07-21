@@ -118,7 +118,7 @@ const FormNewRecipe = ({ closeModal }) => {
       setShowSuccessModal(true);
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 3000);
     } catch (error) {
       console.error("Error adding recipe: ", error);
       // Handle errors, e.g., show an error message to the user
@@ -135,7 +135,7 @@ const FormNewRecipe = ({ closeModal }) => {
           className="closeModal"
         />
         <div className="container-inline">
-          <label htmlFor="title">Nom:</label>
+          <label htmlFor="title">Recette:</label>
           <input
             type="text"
             id="title"

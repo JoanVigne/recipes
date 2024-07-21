@@ -149,6 +149,7 @@ form input[type="submit"]:hover {
 }
 form .containerIngredientInputIconList {
   display: flex;
+  flex-wrap: wrap;
 }
 form .containerIngredientInputIconList label {
   width: 100px;
@@ -167,7 +168,12 @@ form .passwordMessage {
   form input {
     width: auto;
   }
-
+  form input[type="submit"] {
+    height: 46px;
+  }
+  form .ingredientAndAdd {
+    width: auto;
+  }
   .imagePreview {
     width: 80%;
     object-fit: cover;
