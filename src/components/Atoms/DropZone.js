@@ -12,7 +12,16 @@ export default function DropZone({ handleFileChange }) {
   return (
     <div className="dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
       <label htmlFor="image">
-        Dépose une photo de ta recette, les photos moches sont accéptées !
+        Dépose une photo de ta recette ici !
+        <div className="container-inline">
+          {/*       <label htmlFor="image"></label> */}
+          <input
+            type="file"
+            id="image"
+            name="image"
+            onChange={(e) => handleFileChange(e)}
+          />
+        </div>
       </label>
     </div>
   );

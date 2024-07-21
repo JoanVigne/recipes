@@ -134,34 +134,38 @@ const FormNewRecipe = ({ closeModal }) => {
           onClick={closeModal}
           className="closeModal"
         />
-        <label htmlFor="title">Nom:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={recipe.title}
-          onChange={handleChange}
-        />
-        <label htmlFor="ingredients">Ingredients:</label>
-        <div className="ingredientAndAdd">
+        <div className="container-inline">
+          <label htmlFor="title">Nom:</label>
           <input
             type="text"
-            id="ingredients"
-            value={recipe.currentIngredient || ""}
-            onChange={(e) => handleIngredientChange(e.target.value)}
-            placeholder="Example: 100g de farine"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault(); // Prevent the form from being submitted
-                addIngredientField();
-              }
-            }}
+            id="title"
+            name="title"
+            value={recipe.title}
+            onChange={handleChange}
           />
-          <FontAwesomeIcon
-            className="addIngredient"
-            icon={faPlus}
-            onClick={addIngredientField}
-          />
+        </div>
+        <div className="containerIngredientInputIconList">
+          <label htmlFor="ingredients">Ingredients:</label>
+          <div className="ingredientAndAdd">
+            <input
+              type="text"
+              id="ingredients"
+              value={recipe.currentIngredient || ""}
+              onChange={(e) => handleIngredientChange(e.target.value)}
+              placeholder="Example: 100g de farine"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault(); // Prevent the form from being submitted
+                  addIngredientField();
+                }
+              }}
+            />
+            <FontAwesomeIcon
+              className="addIngredient"
+              icon={faPlus}
+              onClick={addIngredientField}
+            />
+          </div>
         </div>
         <p className="ingredientList">
           {recipe.ingredients.length > 0 &&
@@ -204,20 +208,20 @@ const FormNewRecipe = ({ closeModal }) => {
           ) : (
             <>
               <DropZone handleFileChange={handleFileChange} />
-              <div className="container-inputfile-title">
-                <label htmlFor="image">Ou de maniére plus classique ici</label>
+              {/*    <div className="container-inline">
+                <label htmlFor="image"></label>
                 <input
                   type="file"
                   id="image"
                   name="image"
                   onChange={(e) => handleFileChange(e)}
                 />
-              </div>
+              </div> */}
             </>
           )}
         </div>
 
-        <div className="containerLabelInput">
+        <div className="container-inline">
           <label htmlFor="postedBy">Posté par:</label>
           <input
             type="text"
@@ -227,7 +231,7 @@ const FormNewRecipe = ({ closeModal }) => {
             onChange={handleChange}
           />
         </div>
-        <div className="containerLabelInput">
+        <div className="container-inline">
           <label htmlFor="password">Password:</label>
 
           <input
@@ -237,10 +241,8 @@ const FormNewRecipe = ({ closeModal }) => {
             value={password}
             onChange={handlePasswordChange}
           />
-
-          <p className="passwordMessage">{passwordMessage}</p>
         </div>
-
+        <p className="passwordMessage">{passwordMessage}</p>
         <input type="submit" value="Save Recipe" />
       </form>
     </aside>

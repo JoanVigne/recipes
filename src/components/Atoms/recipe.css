@@ -35,9 +35,26 @@
   margin: 5px;
 }
 .containerRecipe ul li {
-  margin-left: 20px;
+  margin-left: 30px;
 }
+.containerRecipe .li-with-icon {
+  display: flex;
+  align-items: center;
 
+  list-style-type: none;
+  margin-left: 0;
+}
+.containerRecipe .icon-ingredient {
+  width: 25px;
+  max-height: 24px;
+  margin-right: 5px;
+}
+@media (max-width: 768px) {
+  .containerRecipe ul li,
+  .containerRecipe p {
+    font-size: 18px;
+  }
+}
 @keyframes fadeInUp {
   from {
     opacity: 0;
