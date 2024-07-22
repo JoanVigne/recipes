@@ -27,7 +27,10 @@ body {
   background-size: cover;
   font-family: "ZillaSlab", cursive;
 }
-
+h2 {
+  margin-left: 25px;
+  font-size: 30px;
+}
 /* ol,
 ul {
   list-style: none;

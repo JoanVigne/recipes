@@ -9,6 +9,7 @@ function App() {
     <div className="App">
       <Header />
       <main>
+        <h2>Toutes les recettes</h2>
         <ContainerRecipes />
       </main>
       <Footer />

@@ -10,9 +10,25 @@ export default function ContainerRecipes() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const cachedRecipes = sessionStorage.getItem("recipes");
+    let cachedRecipes = sessionStorage.getItem("recipes");
     if (cachedRecipes) {
-      setRecipes(JSON.parse(cachedRecipes));
+      const sortedRecipes = JSON.parse(cachedRecipes).sort((a, b) => {
+        // Both recipes have createdAt, sort by timestamp
+        if (a.createdAt && b.createdAt) {
+          return b.createdAt - a.createdAt;
+        }
+        // Recipe a does not have createdAt, put it after b
+        if (!a.createdAt) {
+          return 1; // Move a to the end
+        }
+        // Recipe b does not have createdAt, put it after a
+        if (!b.createdAt) {
+          return -1; // Keep a before b
+        }
+      });
+
+      setRecipes(sortedRecipes);
+
       setLoading(false);
     } else {
       fetchRecipes();
@@ -26,6 +42,17 @@ export default function ContainerRecipes() {
         id: doc.id,
         ...doc.data(),
       }));
+      fetchedRecipes.sort((a, b) => {
+        if (a.createdAt && b.createdAt) {
+          return b.createdAt - a.createdAt;
+        }
+        if (!a.createdAt) {
+          return 1;
+        }
+        if (!b.createdAt) {
+          return -1;
+        }
+      });
       setRecipes(fetchedRecipes);
       sessionStorage.setItem("recipes", JSON.stringify(fetchedRecipes));
       setLoading(false);
