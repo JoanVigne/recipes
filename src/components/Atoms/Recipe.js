@@ -21,12 +21,17 @@ export default function Recipe({ recipe, openRecipe }) {
       className="containerRecipe"
       onClick={() => openRecipe && openRecipe(recipe)}
     >
-      <img
-        className="imageRecipe"
-        alt={"photo de " + recipe.title + " indisponible"}
-        onClick={() => window.open(recipe.imageUrl)}
-        src={recipe.imageUrl ? recipe.imageUrl : ""}
-      />
+      {recipe.imageUrl ? (
+        <img
+          className="imageRecipe"
+          alt={"photo de " + recipe.title}
+          onClick={() => window.open(recipe.imageUrl)}
+          src={recipe.imageUrl ? recipe.imageUrl : ""}
+        />
+      ) : (
+        <div className="imageRecipe"></div>
+      )}
+
       <div className="containerText">
         <h3 className="titleAndPostedBy">
           {recipe.title}

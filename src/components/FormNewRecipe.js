@@ -232,7 +232,7 @@ const FormNewRecipe = ({ closeModal }) => {
           />
         </div>
         <div className="container-inline">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Mot de passe:</label>
 
           <input
             type="password"
