@@ -1,6 +1,7 @@
 .containerAllRecipes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {

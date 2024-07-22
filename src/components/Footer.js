@@ -12,7 +12,7 @@ export default function Footer() {
         directement sur whatsapp.
       </p>
 
-      <p>© 2021, All rights reserved.</p>
+      <p>© 2024, All rights reserved.</p>
     </footer>
   );
 }

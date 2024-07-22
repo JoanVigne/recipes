@@ -33,11 +33,11 @@ export default function Recipe({ recipe, openRecipe }) {
       )}
 
       <div className="containerText">
-        <h3 className="titleAndPostedBy">
-          {recipe.title}
+        <div className="titleAndPostedBy">
+          <h3>{recipe.title}</h3>
           <i>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</i>
-        </h3>
-        <h3>Ingrédients</h3>
+        </div>
+        <h4>Ingrédients</h4>
         <ul>
           {recipe.ingredients.map((ingredient, index) => {
             // Attempt to find a matching icon

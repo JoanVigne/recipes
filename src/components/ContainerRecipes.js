@@ -25,6 +25,8 @@ export default function ContainerRecipes() {
         if (!b.createdAt) {
           return -1; // Keep a before b
         }
+        // In case both are missing createdAt, maintain original order
+        return 0;
       });
 
       setRecipes(sortedRecipes);
@@ -52,6 +54,7 @@ export default function ContainerRecipes() {
         if (!b.createdAt) {
           return -1;
         }
+        return 0;
       });
       setRecipes(fetchedRecipes);
       sessionStorage.setItem("recipes", JSON.stringify(fetchedRecipes));
