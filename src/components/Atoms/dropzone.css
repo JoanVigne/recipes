@@ -13,4 +13,11 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-left: 2px;
+}
+
+@media (max-width: 368px) {
+  .dropzone {
+    width: 95%;
+  }
 }
