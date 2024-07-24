@@ -3,6 +3,7 @@ import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import "./containerRecipes.css";
 import Recipe from "./Atoms/Recipe";
+import { Link } from "react-router-dom";
 
 export default function ContainerRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -64,16 +65,15 @@ export default function ContainerRecipes() {
       setLoading(false);
     }
   };
-  function openRecipe(recipe) {
-    console.log("openRecipe", recipe);
-  }
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="containerAllRecipes">
       {recipes.map((recipe) => (
-        <Recipe
+        <Link
+          to={`/recipe/${recipe.id}`}
           key={
             recipe.id
               ? recipe.id
@@ -81,9 +81,9 @@ export default function ContainerRecipes() {
               ? recipe.createAt
               : Math.random()
           }
-          recipe={recipe}
-          openRecipe={openRecipe}
-        />
+        >
+          <Recipe recipe={recipe} />
+        </Link>
       ))}
     </div>
   );

@@ -5,6 +5,7 @@ import "./headerfooter.css";
 import FormNewRecipe from "./FormNewRecipe";
 import ModalSearchedRecipes from "./ModalSearchedRecipes";
 import spoonlogo from "../assets/spoon.png";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,11 +33,12 @@ export default function Header() {
   return (
     <header>
       {searchedRecipe && <ModalSearchedRecipes recipes={recipes} />}
-      <div className="containerLogoTitle">
-        <img className="logo" src={spoonlogo} alt="" />
-        <h1>Recette de famille</h1>
-      </div>
-
+      <Link to="/">
+        <div className="containerLogoTitle">
+          <img className="logo" src={spoonlogo} alt="" />
+          <h1>Recette de famille</h1>
+        </div>
+      </Link>
       {isModalOpen && <FormNewRecipe closeModal={closeModal} />}
       <nav>
         <button

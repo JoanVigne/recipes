@@ -1,7 +1,7 @@
 import "./recipe.css";
 import React from "react";
 
-export default function Recipe({ recipe, openRecipe }) {
+export default function Recipe({ recipe }) {
   const myIcons = [
     "beurre",
     "ble",
@@ -16,16 +16,12 @@ export default function Recipe({ recipe, openRecipe }) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
   return (
-    <div
-      // here the key ?
-      className="containerRecipe"
-      onClick={() => openRecipe && openRecipe(recipe)}
-    >
+    <div className="containerRecipe">
       {recipe.imageUrl ? (
         <img
           className="imageRecipe"
           alt={"photo de " + recipe.title}
-          onClick={() => window.open(recipe.imageUrl)}
+          /*   onClick={() => window.open(recipe.imageUrl)} */
           src={recipe.imageUrl ? recipe.imageUrl : ""}
         />
       ) : (
@@ -71,17 +67,16 @@ export default function Recipe({ recipe, openRecipe }) {
             }
           })}
         </ul>
-        {recipe.instructions.split(".").map((sentence, index, array) => {
-          const trimmedSentence = sentence.trim();
-          const capitalizedSentence =
-            trimmedSentence.charAt(0).toUpperCase() + trimmedSentence.slice(1);
-          return (
-            <p key={index}>
-              {capitalizedSentence}
-              {index < array.length - 1 ? "." : ""}
-            </p>
-          );
-        })}
+        {recipe.instructions
+          .split(".")
+          .filter((sentence) => sentence.trim().length > 0)
+          .map((sentence, index, array) => {
+            const trimmedSentence = sentence.trim();
+            const capitalizedSentence =
+              trimmedSentence.charAt(0).toUpperCase() +
+              trimmedSentence.slice(1);
+            return <p key={index}>{capitalizedSentence}.</p>;
+          })}
       </div>
     </div>
   );
