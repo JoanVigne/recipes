@@ -70,21 +70,25 @@ export default function ContainerRecipes() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="containerAllRecipes">
-      {recipes.map((recipe) => (
-        <Link
-          to={`/recipe/${recipe.id}`}
-          key={
-            recipe.id
-              ? recipe.id
-              : recipe.createAt
-              ? recipe.createAt
-              : Math.random()
-          }
-        >
-          <Recipe recipe={recipe} />
-        </Link>
-      ))}
-    </div>
+    <>
+      <h2>Toutes les recettes </h2>
+
+      <div className="containerAllRecipes">
+        {recipes.map((recipe) => (
+          <Link
+            to={`/recipe/${recipe.id}`}
+            key={
+              recipe.id
+                ? recipe.id
+                : recipe.createAt
+                ? recipe.createAt
+                : Math.random()
+            }
+          >
+            <Recipe recipe={recipe} />
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }

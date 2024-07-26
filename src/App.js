@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import RecipePage from "./components/RecipePage";
+import ContainerCreators from "./components/ContainerCreators";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             {/* Route for individual recipe pages */}
             <Route path="/recipe/:id" element={<RecipePage />} />
           </Routes>
+          <ContainerCreators />
         </main>
         <Footer />
       </div>

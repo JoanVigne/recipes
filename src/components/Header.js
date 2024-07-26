@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons"; */
 import "./headerfooter.css";
 import FormNewRecipe from "./FormNewRecipe";
 import ModalSearchedRecipes from "./ModalSearchedRecipes";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isInputOpen, setIsInputOpen] = useState(false);
+  /*   const [isInputOpen, setIsInputOpen] = useState(false); */
   const [recipes, setRecipes] = useState([]);
 
   const [searchedRecipe, setSearchedRecipe] = useState("");
@@ -17,7 +17,7 @@ export default function Header() {
     window.scrollTo(0, 0);
     setIsModalOpen(false);
   };
-  function searchThisWord() {
+  /*   function searchThisWord() {
     const cachedRecipes = sessionStorage.getItem("recipes");
     setRecipes(JSON.parse(cachedRecipes));
     const search = document.querySelector(".searchRecipeInput").value;
@@ -29,7 +29,7 @@ export default function Header() {
     setSearchedRecipe(search);
     document.querySelector(".searchRecipeInput").value = "";
     setIsInputOpen(false);
-  }
+  } */
   return (
     <header>
       {searchedRecipe && <ModalSearchedRecipes recipes={recipes} />}

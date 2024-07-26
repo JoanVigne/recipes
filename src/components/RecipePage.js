@@ -17,6 +17,7 @@ export default function RecipePage() {
   }, [id]);
   return (
     <div className="container-recipe-alone">
+      <h2>En voilà une recette appétissante !</h2>
       {recipe ? (
         <Recipe recipe={recipe} />
       ) : (
