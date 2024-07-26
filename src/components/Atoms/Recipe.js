@@ -1,20 +1,8 @@
+import IconLi from "./IconLi";
 import "./recipe.css";
 import React from "react";
 
 export default function Recipe({ recipe }) {
-  const myIcons = [
-    "beurre",
-    "ble",
-    "oeuf",
-    "sucre",
-    "cacao",
-    "cafe",
-    "miel",
-    "vanille",
-  ];
-  function removeAccents(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
   return (
     <div className="containerRecipe">
       {recipe.imageUrl ? (
@@ -36,35 +24,7 @@ export default function Recipe({ recipe }) {
         <h4>Ingrédients</h4>
         <ul>
           {recipe.ingredients.map((ingredient, index) => {
-            // Attempt to find a matching icon
-            let matchingIcon;
-            let ingredientNoAccent = removeAccents(ingredient.toLowerCase());
-            if (ingredientNoAccent.includes("chocolat")) {
-              matchingIcon = "cacao";
-            } else if (ingredientNoAccent.includes("farine")) {
-              matchingIcon = "ble";
-            } else {
-              matchingIcon = myIcons.find((ic) =>
-                ingredientNoAccent.includes(removeAccents(ic))
-              );
-              if (!matchingIcon) {
-                matchingIcon = myIcons.find((ic) => ingredient.includes(ic));
-              }
-            }
-            if (matchingIcon) {
-              return (
-                <li key={index} className="li-with-icon">
-                  <img
-                    className="icon-ingredient"
-                    src={require(`/src/assets/icons/${matchingIcon}.png`)}
-                    alt="icon"
-                  />
-                  {ingredient}
-                </li>
-              );
-            } else {
-              return <li key={index}>{ingredient}</li>;
-            }
+            return <IconLi key={index} name={ingredient} />;
           })}
         </ul>
         {recipe.instructions

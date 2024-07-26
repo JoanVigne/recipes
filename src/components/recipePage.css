@@ -1,7 +1,6 @@
 .container-recipe-alone {
   width: 100%;
   min-height: 60vh;
-  margin-top: -150px;
 }
 
 .container-recipe-alone .containerRecipe {
@@ -26,7 +25,7 @@
 .container-recipe-alone .titleAndPostedBy {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
@@ -53,7 +52,6 @@
   content: "•"; /* Unicode character for a bullet */
   display: inline-block;
   width: 1em; /* Ensures a consistent space between the bullet and the text */
-  margin-left: 50px; /* Adjusts the position of the bullet to the left of the paragraph */
 }
 @media (max-width: 768px) {
   .container-recipe-alone .containerRecipe .containerText {
@@ -67,6 +65,7 @@
   .container-recipe-alone .containerRecipe ul li,
   .containerRecipe p {
     font-size: 18px;
+    margin-left: 15px;
   }
   .container-recipe-alone form label {
     margin: 5px 0;

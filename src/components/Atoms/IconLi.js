@@ -1,4 +1,4 @@
-export default function Icon({ name }) {
+export default function IconLi({ name }) {
   const myIcons = [
     "beurre",
     "ble",
@@ -27,11 +27,18 @@ export default function Icon({ name }) {
       matchingIcon = myIcons.find((ic) => name.includes(ic));
     }
   }
-  return (
-    <img
-      className="icon-ingredient"
-      src={require(`../../assets/icons/${matchingIcon}.png`)}
-      alt={"icon" + name}
-    />
-  );
+  if (!matchingIcon) {
+    return <li>{name}</li>;
+  } else {
+    return (
+      <li className="li-with-icon">
+        <img
+          className="icon-ingredient"
+          src={require(`../../assets/icons/${matchingIcon}.png`)}
+          alt={"icon" + name}
+        />
+        {name}
+      </li>
+    );
+  }
 }

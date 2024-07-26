@@ -1,4 +1,23 @@
 .container-creators {
   background-color: rgba(243, 242, 242, 0.96);
   margin: 20px auto;
+  min-height: 300px;
+}
+.container-creators ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.container-creators li {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.container-creators h3 {
+  margin-left: 20px;
+}
+
+.container-creators img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
 }

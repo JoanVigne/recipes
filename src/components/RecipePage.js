@@ -13,17 +13,20 @@ export default function RecipePage() {
     if (myRecipe) {
       const recipe = JSON.parse(myRecipe).find((r) => r.id === id);
       setRecipe(recipe);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
   }, [id]);
+
   return (
     <div className="container-recipe-alone">
-      <h2>En voilà une recette appétissante !</h2>
       {recipe ? (
         <Recipe recipe={recipe} />
       ) : (
         "Cette recette n'est pas disponible ici pour le moment ..."
       )}
-      {/* Display the recipe */}
     </div>
   );
 }

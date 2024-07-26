@@ -4,8 +4,7 @@
   background-color: rgba(243, 242, 242, 0.96);
   margin: 20px;
   border-radius: 20px;
-  min-width: 40%;
-  max-width: 450px;
+  width: 450px;
   animation: fadeInUp 0.5s ease-out forwards;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -50,6 +49,9 @@
 }
 
 @media (max-width: 768px) {
+  .containerAllRecipes .containerRecipe {
+    width: auto;
+  }
   .containerAllRecipes .containerRecipe ul li,
   .containerRecipe p {
     font-size: 18px;

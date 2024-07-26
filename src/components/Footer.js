@@ -7,9 +7,9 @@ export default function Footer() {
     <footer>
       <p>
         <FontAwesomeIcon icon={faInfoCircle} />
-        <br />
-        Pour modifier ou supprimer une recette, <br /> envoie moi un message
-        directement sur whatsapp.
+        Pour modifier une recette, supprimer une recette, ou ajouter et modifier
+        une photo dans la section "Créateurs", envoie moi un message directement
+        sur whatsapp.
       </p>
 
       <p>© 2024, All rights reserved.</p>
