@@ -1,5 +1,6 @@
 import "./containerCreators.css";
 import { useEffect, useState } from "react";
+import majOnFirstLetter from "../utils/majOnFirstLetter";
 
 export default function ContainerCreators() {
   const [creators, setCreators] = useState([]);
@@ -28,31 +29,33 @@ export default function ContainerCreators() {
         <h2>Les créateurs</h2>
         {creators && creators.length > 0 && (
           <ul>
-            {creators.map((creator, index) => {
-              let imgInFile;
-              try {
-                imgInFile = require(`../assets/photos/${creator.name.toLowerCase()}.png`);
-              } catch (e) {
+            {creators
+              .sort((a, b) => b.count - a.count)
+              .map((creator, index) => {
+                let imgInFile;
                 try {
-                  imgInFile = require(`../assets/photos/${creator.name.toLowerCase()}.jpg`);
+                  imgInFile = require(`../assets/photos/${creator.name.toLowerCase()}.png`);
                 } catch (e) {
-                  imgInFile = null;
+                  try {
+                    imgInFile = require(`../assets/photos/${creator.name.toLowerCase()}.jpg`);
+                  } catch (e) {
+                    imgInFile = null;
+                  }
                 }
-              }
-              return (
-                <li key={index}>
-                  {imgInFile ? (
-                    <img src={imgInFile} alt={"photo de " + creator.name} />
-                  ) : (
-                    ""
-                  )}
-                  <h3>
-                    {creator.name} avec {creator.count}{" "}
-                    {creator.count > 1 ? "recettes" : "recette"}.
-                  </h3>
-                </li>
-              );
-            })}
+                return (
+                  <li key={index}>
+                    {imgInFile ? (
+                      <img src={imgInFile} alt={"photo de " + creator.name} />
+                    ) : (
+                      ""
+                    )}
+                    <h3>
+                      {majOnFirstLetter(creator.name)} avec {creator.count}{" "}
+                      {creator.count > 1 ? "recettes" : "recette"}.
+                    </h3>
+                  </li>
+                );
+              })}
           </ul>
         )}
       </section>
