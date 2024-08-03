@@ -3,6 +3,20 @@ import "./recipe.css";
 import React from "react";
 
 export default function Recipe({ recipe }) {
+  function majOnFirstLetter(sentence) {
+    // if all the letters are in CApital letters
+    if (sentence !== sentence.toUpperCase()) {
+      return sentence;
+    }
+    // seperate each word and apply a MAJ on the first letter of each word
+    sentence = sentence.toLowerCase().split(" ");
+    for (let i = 0; i < sentence.length; i++) {
+      sentence[i] = sentence[i].charAt(0).toUpperCase() + sentence[i].slice(1);
+    }
+    sentence = sentence.join(" ");
+    return sentence;
+  }
+
   return (
     <div className="containerRecipe">
       {recipe.imageUrl ? (
@@ -18,8 +32,11 @@ export default function Recipe({ recipe }) {
 
       <div className="containerText">
         <div className="titleAndPostedBy">
-          <h3>{recipe.title}</h3>
-          <i>{recipe.postedBy && `Posté par ${recipe.postedBy}`}</i>
+          <h3>{majOnFirstLetter(recipe.title)}</h3>
+          <i>
+            {recipe.postedBy &&
+              `Posté par ${majOnFirstLetter(recipe.postedBy)}`}
+          </i>
         </div>
         <h4>Ingrédients</h4>
         <ul>
