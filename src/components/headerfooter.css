@@ -72,12 +72,14 @@ nav .searchRecipeInput.active {
 
 footer p {
   max-width: 500px;
+  padding: 10px 0;
 }
 @media (max-width: 790px) {
   header,
   footer {
     flex-direction: column;
-    padding: 10px;
+    padding: 10px 0;
+    text-align: center;
   }
   .containerLogoTitle {
     margin-left: -28px;

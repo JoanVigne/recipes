@@ -20,21 +20,55 @@ a {
 @font-face {
   font-family: "ZillaSlab";
   src: url("./assets/fonts/Zilla_Slab/ZillaSlab-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ZillaSlab";
+  src: url("./assets/fonts/Zilla_Slab/ZillaSlab-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ZillaSlab";
+  src: url("./assets/fonts/Zilla_Slab/ZillaSlab-BoldItalic.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: italic;
 }
 html {
   scroll-behavior: smooth;
 }
 body {
   line-height: 1.5;
-  /*   height: 100vh; */
+  background: none; /* Remove the background image from the body */
+  font-family: "ZillaSlab", cursive;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("./assets/herbs.jpg");
   background-size: cover;
-  font-family: "ZillaSlab", cursive;
+  background-attachment: fixed;
+  transform: scaleX(-1); /* Flip the background image horizontally */
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
+}
+h1 {
 }
 h2 {
   text-align: center;
-  font-size: 30px;
-  margin: 50px auto;
+  font-size: 36px;
+  font-style: italic;
+  font-weight: bold;
+  margin: 30px auto;
 }
 h3 {
   font-size: 25px;
@@ -53,8 +87,8 @@ img {
 }
 
 @media (max-width: 790px) {
-  h2 {
-    text-align: center;
-    margin: 0;
+  body:before {
+    background-size: auto;
+    transform: scaleY(-1);
   }
 }

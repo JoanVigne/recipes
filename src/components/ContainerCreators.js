@@ -26,7 +26,7 @@ export default function ContainerCreators() {
   return (
     <>
       <section className="container-creators">
-        <h2>Les créateurs</h2>
+        <h2>Ceux qui ont mis leur grain de sel :</h2>
         {creators && creators.length > 0 && (
           <ul>
             {creators

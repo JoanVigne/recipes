@@ -3,7 +3,6 @@ import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import "./containerRecipes.css";
 import Recipe from "./Atoms/Recipe";
-import { Link } from "react-router-dom";
 
 export default function ContainerRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -71,22 +70,17 @@ export default function ContainerRecipes() {
 
   return (
     <>
-      <h2>Toutes les recettes </h2>
+      <h2 className="styled-title">
+        Pour que les recettes de grand-mère
+        <br />
+        se transmettent
+        <br />
+        de génération en génération...
+      </h2>
 
       <div className="containerAllRecipes">
         {recipes.map((recipe) => (
-          <Link
-            to={`/recipe/${recipe.id}`}
-            key={
-              recipe.id
-                ? recipe.id
-                : recipe.createAt
-                ? recipe.createAt
-                : Math.random()
-            }
-          >
-            <Recipe recipe={recipe} />
-          </Link>
+          <Recipe recipe={recipe} />
         ))}
       </div>
     </>
