@@ -36,13 +36,24 @@ export default function Recipe({ recipe }) {
       )}
 
       <div className="containerText">
-        <div className="titleAndPostedBy">
-          <h3>{majOnFirstLetter(recipe.title)}</h3>
-          <i>
-            {recipe.postedBy &&
-              `Posté par ${majOnFirstLetter(recipe.postedBy)}`}
-          </i>
-        </div>
+        <Link
+          to={`/recipe/${recipe.id}`}
+          key={
+            recipe.id
+              ? recipe.id
+              : recipe.createAt
+              ? recipe.createAt
+              : Math.random()
+          }
+        >
+          <div className="titleAndPostedBy">
+            <h3>{majOnFirstLetter(recipe.title)}</h3>
+            <i>
+              {recipe.postedBy &&
+                `Posté par ${majOnFirstLetter(recipe.postedBy)}`}
+            </i>
+          </div>
+        </Link>
 
         <div
           className={

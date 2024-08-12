@@ -77,9 +77,17 @@ export default function ContainerRecipes() {
         <br />
         de génération en génération...
       </h2>
+      <h3>Les nouvelles recettes</h3>
+      <div className="containerAllRecipes container-new-recipes">
+        {/* ici les recettes de 0 à 3 dernieres */}
 
+        {recipes.slice(0, 3).map((recipe) => (
+          <Recipe recipe={recipe} />
+        ))}
+      </div>
       <div className="containerAllRecipes">
-        {recipes.map((recipe) => (
+        {/* ici les autres */}
+        {recipes.slice(3).map((recipe) => (
           <Recipe recipe={recipe} />
         ))}
       </div>
