@@ -53,11 +53,11 @@
   display: inline-block;
   width: 1em; /* Ensures a consistent space between the bullet and the text */
 }
-@media (max-width: 768px) {
-  .container-recipe-alone .containerRecipe .containerText {
-    padding: 10px;
-  }
 
+.container-recipe-alone .display-more-details {
+  top: 96%;
+}
+@media (max-width: 768px) {
   .container-recipe-alone .containerRecipe ul {
     display: flex;
     flex-direction: column;

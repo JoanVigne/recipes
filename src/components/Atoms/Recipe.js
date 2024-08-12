@@ -1,18 +1,33 @@
 import IconLi from "./IconLi";
 import "./recipe.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import majOnFirstLetter from "../../utils/majOnFirstLetter";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import down from "../../assets/icons/down.png";
 import up from "../../assets/icons/up.png";
-export default function Recipe({ recipe }) {
-  const [moreDetails, setMoreDetails] = React.useState(false);
-
+import scrollIntoThisRef from "../../utils/scrollIntoThisRef";
+export default function Recipe({ recipe, detailsOpen }) {
+  const [moreDetails, setMoreDetails] = React.useState(detailsOpen);
+  const refContainerPosition = useRef(null);
+  const location = useLocation();
   useEffect(() => {
-    console.log("Recipe component mounted");
-  }, []);
+    if (detailsOpen) {
+      setMoreDetails(detailsOpen);
+    }
+  }, [detailsOpen]);
+  function clickOnMoreDetails() {
+    setMoreDetails(!moreDetails);
+    const currentUrl = location.pathname + location.search;
+    console.log("Current URL:", currentUrl);
+    if (currentUrl === "/") {
+      scrollIntoThisRef(refContainerPosition, -10);
+    } else {
+      scrollIntoThisRef(refContainerPosition, -250);
+    }
+  }
+
   return (
-    <div className="containerRecipe">
+    <div className="containerRecipe" ref={refContainerPosition}>
       {recipe.imageUrl ? (
         <Link
           to={`/recipe/${recipe.id}`}
@@ -62,6 +77,15 @@ export default function Recipe({ recipe }) {
               : "container-ingredients-instructions"
           }
         >
+          {
+            <div className="display-more-details" onClick={clickOnMoreDetails}>
+              <img
+                className={moreDetails ? "up" : "down"}
+                src={moreDetails ? up : down}
+                alt="Show more"
+              />
+            </div>
+          }
           <h4>Ingrédients</h4>
           <ul>
             {recipe.ingredients.map((ingredient, index) => {
@@ -79,21 +103,6 @@ export default function Recipe({ recipe }) {
               return <p key={index}>{capitalizedSentence}.</p>;
             })}
         </div>
-        {!moreDetails ? (
-          <div
-            className="display-more-details"
-            onClick={() => setMoreDetails(!moreDetails)}
-          >
-            <img className="down" src={down} alt="Show more" />
-          </div>
-        ) : (
-          <div
-            className="display-more-details"
-            onClick={() => setMoreDetails(!moreDetails)}
-          >
-            <img className="up" src={up} alt="Show less" />
-          </div>
-        )}
       </div>
     </div>
   );

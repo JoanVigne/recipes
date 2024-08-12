@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { db } from "../firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+
 import "./containerRecipes.css";
 import Recipe from "./Atoms/Recipe";
+import { fetchRecipes } from "../utils/fetchs";
 
 export default function ContainerRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -30,14 +30,14 @@ export default function ContainerRecipes() {
       });
 
       setRecipes(sortedRecipes);
-
       setLoading(false);
     } else {
-      fetchRecipes();
+      setRecipes(fetchRecipes);
+      setLoading(false);
     }
   }, []);
 
-  const fetchRecipes = async () => {
+  /*   const fetchRecipes = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "recipes"));
       const fetchedRecipes = querySnapshot.docs.map((doc) => ({
@@ -63,10 +63,9 @@ export default function ContainerRecipes() {
       setError(err);
       setLoading(false);
     }
-  };
+  }; */
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>
@@ -77,18 +76,17 @@ export default function ContainerRecipes() {
         <br />
         de génération en génération...
       </h2>
-      <h3>Les nouvelles recettes</h3>
+      <h2>Les nouvelles recettes</h2>
       <div className="containerAllRecipes container-new-recipes">
         {/* ici les recettes de 0 à 3 dernieres */}
-
         {recipes.slice(0, 3).map((recipe) => (
-          <Recipe recipe={recipe} />
+          <Recipe recipe={recipe} detailsOpen={false} key={recipe.id} />
         ))}
       </div>
       <div className="containerAllRecipes">
         {/* ici les autres */}
         {recipes.slice(3).map((recipe) => (
-          <Recipe recipe={recipe} />
+          <Recipe recipe={recipe} detailsOpen={false} key={recipe.id} />
         ))}
       </div>
     </>

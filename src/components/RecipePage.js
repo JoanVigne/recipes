@@ -23,7 +23,7 @@ export default function RecipePage() {
   return (
     <div className="container-recipe-alone">
       {recipe ? (
-        <Recipe recipe={recipe} />
+        <Recipe recipe={recipe} detailsOpen={true} />
       ) : (
         "Cette recette n'est pas disponible ici pour le moment ..."
       )}
